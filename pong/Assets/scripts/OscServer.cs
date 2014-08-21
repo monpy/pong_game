@@ -89,7 +89,14 @@ public class OscServer : MonoBehaviour
 			return;
 		}
 	}
-
+	void SwitchMethod(String pid,int paramator){
+		//
+		switch (paramator){
+		case 3:
+			createPlayer(pid);
+			break;
+		}
+	}
 	void Update ()
 	{
 		while (udpClient.Available > 0) {
@@ -103,8 +110,8 @@ public class OscServer : MonoBehaviour
 //			if (target) {
 //				target.SendMessage ("OnOscMessage", msg.data [0]);
 //			}
-			Debug.Log (msg.path);
-			Debug.Log (msg.data[0]);
+//			SwitchMethod(msg.path,msg.data[0]);
+			Debug.Log(msg.path+msg.data[0].GetType());
 		}
 	}
 }

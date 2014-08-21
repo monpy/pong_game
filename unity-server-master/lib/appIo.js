@@ -1,12 +1,5 @@
-//
-// states
-//   up: 1
-//   down: 2
-//   connect: 3
-//   disconnect: 4
-
-var OscEmitter = require('osc-emitter')
-  , emitter = new OscEmitter();
+var OscEmitter = require('osc-emitter');
+var emitter = new OscEmitter();
 
 var States = {
   up: 1,
@@ -15,10 +8,20 @@ var States = {
   disconnect: 4
 };
 
-emitter.add('0.0.0.0', 6666);
+var Setting = {
+  maxUsers: 2
+};
+
+var UnityConf = {
+  host: '0.0.0.0',
+  port: 6666
+};
+
+emitter.add(UnityConf.host, UnityConf.port);
 
 function appIo(app, server) {
   var io = require('socket.io')(server);
+  app.locals.currentUsers = 0; // redisで管理した方がいいかも
 
   io.on('connection', function (socket) {
     console.log('socket.id: ', socket.id);
@@ -34,7 +37,7 @@ function appIo(app, server) {
       });
     }
     
-    if (app.locals.currentUsers >= app.locals.maxUsers) {
+    if (app.locals.currentUsers >= Setting.maxUsers) {
       socket.disconnect();
     } else {
       app.locals.currentUsers += 1;
