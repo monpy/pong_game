@@ -21,7 +21,6 @@ emitter.add(UnityConf.host, UnityConf.port);
 
 function appIo(app, server) {
   var io = require('socket.io')(server);
-  app.locals.currentUsers = 0; // redisで管理した方がいいかも
 
   io.on('connection', function (socket) {
     console.log('socket.id: ', socket.id);

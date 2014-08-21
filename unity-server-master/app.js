@@ -53,4 +53,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.locals.currentUsers = 0; // redisで管理した方がいいかも
+
 module.exports = app;
