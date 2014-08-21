@@ -11,15 +11,23 @@ public class MoveRacket : MonoBehaviour {
 	// Use this for initialization
 	void FixedUpdate () {
 		if(Input.GetKey(up)){
-			transform.Translate(Vector2.up * speed);
+			MoveUp();
 		}
 
 		if(Input.GetKey(down)){
-			transform.Translate(Vector2.up * -speed);
+			MoveDown();
 		}
 	}
 
 	void RemoveOwn(){
 		Destroy(gameObject);
+	}
+
+	void MoveUp(){
+		transform.Translate(Vector2.up * speed);
+	}
+
+	void MoveDown(){
+		transform.Translate(Vector2.up * -speed);
 	}
 }

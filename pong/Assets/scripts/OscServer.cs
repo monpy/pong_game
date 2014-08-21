@@ -15,8 +15,8 @@ public class OscServer : MonoBehaviour
 	Osc.Parser osc = new Osc.Parser ();
 	private String player1Id = "none";
 	private String player2Id = "none";
-	private UnityEngine.Object p1 = null;
-	private UnityEngine.Object p2 = null;
+	private GameObject p1 = null;
+	private GameObject p2 = null;
 	
 	void Start ()
 	{
@@ -45,11 +45,11 @@ public class OscServer : MonoBehaviour
 	void setPlayerToStage(int pid){
 		switch(pid){
 			case 1:
-				p1 = Instantiate(player1);
+				p1 = Instantiate(player1) as GameObject;
 				p1.name = "p1";
 				break;
 			case 2:
-				p2 = Instantiate(player2);
+				p2 = Instantiate(player2) as GameObject;
 				p2.name = "p2";
 				break;
 		}
@@ -91,9 +91,36 @@ public class OscServer : MonoBehaviour
 			return;
 		}
 	}
-	void SwitchMethod(String pid,String paramator){
+
+	void MoveUp(String id){
+		if(id == player1Id){
+			p1.SendMessage("MoveUp");
+		}
+
+		if(id == player2Id){
+			p2.SendMessage("MoveUp");
+		}
+	}
+
+	void MoveDown(String id){
+		if(id == player1Id){
+			p1.SendMessage("MoveDown");
+		}
+		
+		if(id == player2Id){
+			p2.SendMessage("MoveDown");
+		}
+	}
+
+	void SwitchMethod(String pid, String paramator){
 		//
 		switch (paramator){
+		case "1":
+			MoveUp(pid);
+			break;
+		case "2":
+			MoveDown(pid);
+			break;
 		case "3":
 			createPlayer(pid);
 			break;
@@ -103,6 +130,7 @@ public class OscServer : MonoBehaviour
 
 		}
 	}
+
 	void Update ()
 	{
 		while (udpClient.Available > 0) {
@@ -116,7 +144,7 @@ public class OscServer : MonoBehaviour
 //			if (target) {
 //				target.SendMessage ("OnOscMessage", msg.data [0]);
 //			}
-			SwitchMethod(msg.path,msg.data[0].ToString());
+			SwitchMethod(msg.path, msg.data[0].ToString());
 			Debug.Log(msg.path+msg.data[0].ToString());
 		}
 	}
