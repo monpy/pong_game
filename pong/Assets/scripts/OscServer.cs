@@ -145,7 +145,6 @@ public class OscServer : MonoBehaviour
 //				target.SendMessage ("OnOscMessage", msg.data [0]);
 //			}
 			SwitchMethod(msg.path, msg.data[0].ToString());
-			Debug.Log(msg.path+msg.data[0].ToString());
 		}
 	}
 }
