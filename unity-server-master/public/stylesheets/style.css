@@ -1,8 +1,64 @@
+html{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 body {
-  padding: 50px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+#notice{
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  margin-top: -22px;
+  z-index: 100;
+  font-size: 30px;
+  font-style: italic;
+  width: 100%;
+  color: #fff; 
+}
+
+.up,.down{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  display: table;
+  vertical-align: middle;
+}
+
+.up{
+  top: 0;
+  background: green;
+}
+
+.down{
+  bottom: 0;
+  background: yellow;
+}
+
+.string{
+  display: table-cell;
+  text-align: center;
+  font-size: 60px;
+  color: #f5f5f5;
+  vertical-align: middle;
+}
+
+#controller{
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
