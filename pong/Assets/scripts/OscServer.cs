@@ -15,6 +15,8 @@ public class OscServer : MonoBehaviour
 	Osc.Parser osc = new Osc.Parser ();
 	private String player1Id = "none";
 	private String player2Id = "none";
+	private UnityEngine.Object p1 = null;
+	private UnityEngine.Object p2 = null;
 	
 	void Start ()
 	{
@@ -43,12 +45,12 @@ public class OscServer : MonoBehaviour
 	void setPlayerToStage(int pid){
 		switch(pid){
 			case 1:
-				var p1 = Instantiate(player1);
+				p1 = Instantiate(player1);
 				p1.name = "p1";
 				break;
 			case 2:
-				Instantiate(player2);
-				p1.name = "p2";
+				p2 = Instantiate(player2);
+				p2.name = "p2";
 				break;
 		}
 		Debug.Log ("set: " + pid);
@@ -58,15 +60,15 @@ public class OscServer : MonoBehaviour
 	void removePlayerFromStage(int pid){
 		switch(pid){
 			case 1:
-				var target = GameObject.Find ("/p1");
-				if(target){
-					target.SendMessage ("RemoveOwn");
+				if(p1){
+					Destroy(p1);
+					player1Id = "none";
 				}
 				break;
 			case 2:
-				Destroy(GameObject.Find ("/p2"));
-				if(target){
-					target.SendMessage ("RemoveOwn");
+				if(p2){
+					Destroy(p2);
+					player2Id = "none";
 				}
 				break;
 		}
@@ -89,12 +91,16 @@ public class OscServer : MonoBehaviour
 			return;
 		}
 	}
-	void SwitchMethod(String pid,int paramator){
+	void SwitchMethod(String pid,String paramator){
 		//
 		switch (paramator){
-		case 3:
+		case "3":
 			createPlayer(pid);
 			break;
+		case "4":
+			deletePlayer(pid);
+			break;
+
 		}
 	}
 	void Update ()
@@ -110,8 +116,8 @@ public class OscServer : MonoBehaviour
 //			if (target) {
 //				target.SendMessage ("OnOscMessage", msg.data [0]);
 //			}
-//			SwitchMethod(msg.path,msg.data[0]);
-			Debug.Log(msg.path+msg.data[0].GetType());
+			SwitchMethod(msg.path,msg.data[0].ToString());
+			Debug.Log(msg.path+msg.data[0].ToString());
 		}
 	}
 }
