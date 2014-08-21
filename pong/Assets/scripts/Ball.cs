@@ -14,18 +14,19 @@ public class Ball : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D col){
+		audio.Play();
 		if (col.gameObject.name == "RacketLeft"){
 			//left racket
 			float y = hitFactor(transform.position, col.transform.position, ((BoxCollider2D)col.collider).size.y);
 			Vector2 dir = new Vector2(1, y).normalized;
 			rigidbody2D.velocity = dir * speed;
-			speed *= 1.01f;
+			speed *= 1.05f;
 		}else if(col.gameObject.name == "RacketRight"){
 			//right racket
 			float y = hitFactor(transform.position, col.transform.position, ((BoxCollider2D)col.collider).size.y);
 			Vector2 dir = new Vector2(-1, y).normalized;
 			rigidbody2D.velocity = dir * speed;
-			speed *= 1.02f;
+			speed *= 1.08f;
 		}else if(col.gameObject.name == "WallRight" || col.gameObject.name == "WallLeft"){
 			// restart
 //			Debug.Log("hit");
