@@ -10,11 +10,16 @@ $(function(){
 
   var mc = new Hammer(document.getElementById('controller'));
   mc.on("pan panstart panmove", function(ev) {
+    ev.preventDefault()
     nowY = ev.center.y;
   });
 
   mc.on("panend", function(ev) {
     nowY = 0;
+  });
+
+  $(window).on('touchmove', function(e) {
+    e.preventDefault();
   });
 
   var gameTimer = setInterval(function(){
